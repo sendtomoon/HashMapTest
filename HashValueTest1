@@ -4,25 +4,31 @@ import java.util.Random;
 
 public class HashValueTest1 {
 
+    int length = 7;
+
     public static void main(String[] args) {
         HashValueTest1 test1 = new HashValueTest1();
 
-        for (int i = 0; i <= 999; i++) {
+        for (int i = 1; i <= 999; i++) {
             Integer iii = i;
-            test1.hash1(randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp());
+            test1.hash1(randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp() + randomIp(), i);
         }
     }
 
-    public int hash1(String key) {
+    public int hash1(String key, int pos) {
         int h = key.hashCode();
         if (key == null) {
             return 0;
         }
-        System.out.println(h);
-        h = h >>> 16;
-        System.out.println(">>>-16:" + h);
-        h = h ^ h >>> 16;
-        System.out.println("hash:" + h);
+        //System.out.println("-----"+Integer.toBinaryString(h));
+        int i = h >>> 16;
+        //System.out.println("1600:" + Integer.toBinaryString(h));
+        int f = h ^ i;
+        //System.out.println("hash:" + Integer.toBinaryString(h));
+        if (pos / length > 0.75) {
+            length = length + 8;
+        }
+        System.out.println(length & f);
         return h;
     }
 
